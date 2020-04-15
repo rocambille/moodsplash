@@ -4,6 +4,7 @@ import Axios from 'axios';
 import './App.css';
 
 import SearchBar from './components/SearchBar';
+import ImageList from './components/ImageList';
 
 class App extends React.Component {
   constructor(props) {
@@ -30,9 +31,7 @@ class App extends React.Component {
       <div className="App">
         <header className="App-header">
           <SearchBar setKeywords={this.setKeywords} onSearch={this.search} />
-          {
-            images.map((image) => <img src={image} alt="" />)
-          }
+          <ImageList images={images} />
         </header>
       </div>
     );
