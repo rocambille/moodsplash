@@ -14,11 +14,15 @@ class App extends React.Component {
 
   setKeywords = (keywords) => this.setState({ keywords });
 
+  search = () => {
+    console.log('hello');
+  }
+
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <SearchBar setKeywords={this.setKeywords} />
+          <SearchBar setKeywords={this.setKeywords} onSearch={this.search} />
         </header>
       </div>
     );
