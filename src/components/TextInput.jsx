@@ -1,7 +1,7 @@
 import React from 'react';
 
 const TextInput = () => (
-  <p>hello world</p>
+  <input type="text" />
 );
 
 export default TextInput;
