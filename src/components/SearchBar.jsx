@@ -4,15 +4,20 @@ import Button from './Button';
 import TextInput from './TextInput';
 
 const SearchBar = ({
-  setKeywords,
+  keywords,
   onSearch,
+  setKeywords,
+  style,
 }) => (
-  <>
-    <TextInput setText={setKeywords} />
+  <div style={style}>
+    <TextInput
+      setText={setKeywords}
+      text={keywords}
+    />
     <Button onClick={onSearch}>
       Recherche
     </Button>
-  </>
+  </div>
 );
 
 export default SearchBar;
