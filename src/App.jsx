@@ -16,12 +16,29 @@ import ImageList from './components/ImageList';
 const App = () => {
   const [images, setImages] = useState([]);
   const [keywords, setKeywords] = useState('');
+  const [tags, setTags] = useState([]);
 
   const search = () => {
     Axios.get(`https://api.unsplash.com/search/photos?query=${keywords}&client_id=gS4yjdOF7bCy1YmWS5bGdOo-kjy520FRokEHcs8w48M`)
       .then((response) => response.data)
       .then((data) => {
-        setImages(data.results.map((result) => result.urls.regular));
+        setImages(data.results);
+
+        /*let tags = [];
+
+        for (let i = 0; i < data.results.length; i++) {
+          tags = [...tags, ...data.results[i].tags];
+        }*/
+
+        /*let tags = [];
+
+        data.results.forEach((result) => {
+          tags = [...tags, ...result.tags];
+        });*/
+
+        setTags([...new Set(data.results.reduce((acc, result) => {
+          return [...acc, ...result.tags.map((tag) => tag.title)];
+        }, []))]);
       });
   };
 
@@ -40,7 +57,25 @@ const App = () => {
               }}
             />
 
-            <ImageList images={images} />
+            <div
+              style={{
+                columnSpan: 'all',
+                marginBottom: '1rem',
+              }}
+            >
+              {tags.map((tag) => (
+                <div
+                  style={{
+                    display: 'inline-block',
+                    marginRight: '1rem',
+                  }}
+                >
+                  <input name={tag} type="checkbox" />
+                  <label htmlFor={tag}>{tag}</label>
+                </div>
+              ))}
+            </div>
+            <ImageList images={images} filteredTags={['neon', 'black-and-white']} />
           </header>
         </div>
       </Route>
